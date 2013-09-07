@@ -1,8 +1,10 @@
 ulogin-for-q2a
 ==============
-This is plugin for question2answer CMS ( http://www.question2answer.org/ ) and allow you login in, uses uLogin sevice ( http://ulogin.ru/ )  and your social accounts.
+This is plugin for question2answer CMS ( http://www.question2answer.org/ ) and allow you login in, uses uLogin service ( http://ulogin.ru/ )  and your social accounts.
 
-Ñapabilities:
+Do not use iframes and full customizable!
+
+Capabilities:
 ==============
 1) Customized appearance and possibility to display your own pictures of buttons
 
