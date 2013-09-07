@@ -1,15 +1,48 @@
 <?php
+///////////////////Description://///////////////
+// Question2Answer uLogin Plugin
+// Allows users login from uLogin - OpenID Service, uses social accounts.
+//////////////////Capabilities://///////////////
+//1) Customized appearance and possibility to display your own pictures of buttons
+//2) Most popular social networks
+////////////////////Install:////////////////////
+//1) Upload ulogin-login folder to qa-plugin dir
+//2) Change settings in qa-ulogin-login.php file.
+/////////How to display my social buttons?//////
+//Upload and replace pictures in "/buttons" folder and set $size = 'buttons' in qa-ulogin-login.php file.
+/////////////////////Links://///////////////////
+//github: https://github.com/saxap/ulogin-for-q2a
+//Plugin URL: 
+/////////////////////Autor://///////////////////
+//nick: saxap
+//blog: dontforget.pro
+//email: saxap@bk.ru
 
-/* Description will be here =) */
 
 class qa_ulogin_login {
+////////////////////////////////////
+/////////////SETINGS:///////////////
+////////////////////////////////////
 
-	var $size = 'buttons'; // also available sizes is: small, panel, window, but not customizible
-	var $providers = 'vkontakte,facebook,twitter,googleplus,yandex,odnoklassniki,mailru'; // available services is: vkontakte,facebook,twitter,googleplus,yandex,odnoklassniki,mailru,livejournal,google,openid,lastfm,linkedin,liveid,soundcloud,steam,flickr,vimeo,youtube,webmoney,foursquare,tumblr,dudu
-	var $return_url = 'http%3A%2F%2Fsenator064.com%2Fquestions%2F';//index.php?qa=login
-	var $hidden = ''; // available values is: other, any values of $providers with ',' or nothing
-	var $realurl = 'http://senator064.com/questions/';
-
+	/* How to display buttons */
+	var $type = 'buttons'; // available types is: small, panel, window, but not customizible
+	/* Providers that will be displayed */	
+	var $providers = 'vkontakte,facebook,twitter,googleplus,yandex'; // available services is: vkontakte,facebook,twitter,googleplus,yandex,odnoklassniki,mailru,livejournal,google,openid,lastfm,linkedin,liveid,soundcloud,steam,flickr,vimeo,youtube,webmoney,foursquare,tumblr,dudu
+	/* Providers that will be hidden */
+	var $hidden = 'other'; // available values is: other, any values of $providers or nothing. only for not buttons
+	/* Real URL to q2a */
+	var $realurl = 'http://q2atest.chatmanager.ru/'; // where your q2a located
+	/* How long remember users */
+	var $cookielife = '48'; // cookie lifetime in hours
+	/* Additional styles */
+	var $style = '<style> #uLogin img { cursor: pointer; margin-left: 5px; } #uLogin { float: left; } .qa-ulogin { float: left; }</style>';
+	/* Texts */
+	var $exit_text = 'Logout';
+	var $login_text = 'Login with..';
+	
+///////////////////////////////////
+///////////SETINGS END/////////////
+///////////////////////////////////
 	var $urltoroot;
 
 	function load_module($directory, $urltoroot) {
@@ -66,9 +99,6 @@ class qa_ulogin_login {
 				$uid = $_COOKIE['qa_ulogin_id'];
 				$cook = $_COOKIE['qa_ulogin_scr'];
 
-				//TODO userIp checking
-				//	$userip = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'];
-
 				$useraccount = qa_db_select_with_pending(qa_db_user_account_selectspec($uid, true));
 				$secret = $useraccount['passcheck'];
 				$lastip = $useraccount['loginip'];
@@ -99,11 +129,6 @@ class qa_ulogin_login {
 						//TODO add userdata convert to userfields
 
 						$userfields = $this->get_userfields($userdata);
-						//print_r($userfields);
-						//die();
-
-						// If user set remember option
-						//if (isset($_GET["remember"]))
 							
 					}
 				}
@@ -141,9 +166,9 @@ class qa_ulogin_login {
 
 				if ($setcookie)
 				{
-					// 1 yer days cookie
-					$expire = time() + 8760 * 60 * 60;
-					$expire2 = time() + 8760 * 60 * 60;
+					// cookie
+					$expire = time() + $this->cookielife * 60 * 60;
+					$expire2 = time() + $this->cookielife * 60 * 60;
 					setcookie('qa_ulogin_id',  $uid, $expire);
 					setcookie('qa_ulogin_scr', $secret, $expire2);
 				}
@@ -157,42 +182,47 @@ class qa_ulogin_login {
 	}
 
 	function login_html($tourl, $context) {
+		if ($this->type == 'buttons') {
 ?>
 			<script src="//ulogin.ru/js/ulogin.js"></script>
-			<style>
-				#uLogin img {
-					cursor: pointer;
-					margin-left: 5px;
-				}
-			</style>
-			<div id="uLogin" x-ulogin-params="display=<?php echo $this->size; ?>;fields=first_name,last_name;optional=email,nickname,bdate,photo;providers=<?php echo $this->providers; ?>;hidden=<?php echo $this->hidden; ?>;redirect_uri=<?php echo $this->return_url; ?>;receiver=<?php echo $this->realurl; ?><?php echo substr($this->urltoroot, 2); ?>xd_custom.html"><!--;callback=ulogin_ucall(<?php // echo $_POST['token']; ?>)-->
-				<?php
+			<?php echo $this->style; ?>
+			<label class="qa-ulogin"><?php echo $this->login_text; ?></label>
+			<div id="uLogin" x-ulogin-params="display=<?php echo $this->type; ?>;fields=first_name,last_name;optional=email,nickname,bdate,photo;providers=<?php echo $this->providers; ?>;hidden=<?php echo $this->hidden; ?>;redirect_uri=<?php echo $this->realurl; ?>;receiver=<?php echo $this->realurl; ?><?php echo substr($this->urltoroot, 2); ?>xd_custom.html">
+			<?php
 				$providers_arr = explode(',', $this->providers);
 				foreach ($providers_arr as $provider) {
 					echo '<img src="'.$this->urltoroot.'buttons/'.$provider.'.png" x-ulogin-button = "'.$provider.'" />';
-	}
+				}
 ?>
-			</div>
+			</div>			
 
-<?php
+<?php  
 
 			
 			
+		} else { 
+?>			
+		<script src="//ulogin.ru/js/ulogin.js"></script>
+		<?php echo $this->style; ?>
+		<label class="qa-ulogin"><?php echo $this->login_text; ?></label>
+		<div id="uLogin" data-ulogin="display=<?php echo $this->type; ?>;fields=first_name,last_name;optional=email,nickname,bdate,photo;providers=<?php echo $this->providers; ?>;hidden=<?php echo $this->hidden; ?>;redirect_uri=<?php echo $this->realurl; ?>"></div>
+
+<?php		
 		}
+	}		
 
 	function logout_html($tourl)
 		{
 ?>
 			<script type="text/javascript">
 				function DeluloginCookies() {
-					//alert("is Work");
 					document.cookie = 'qa_ulogin_id=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 					document.cookie = 'qa_ulogin_scr=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 					document.location = '<?php echo $this->realurl; ?>index.php?qa=logout';
 				}
 			</script>
 
-			<a href="#" onclick="DeluloginCookies()">Выйти </a>
+			<a href="#" onclick="DeluloginCookies()"><?php echo $this->exit_text; ?> </a>
 			
 <?php
 		}
