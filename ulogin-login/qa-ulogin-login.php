@@ -12,7 +12,7 @@
 //Upload and replace pictures in "/buttons" folder and set $size = 'buttons' in qa-ulogin-login.php file.
 /////////////////////Links://///////////////////
 //github: https://github.com/saxap/ulogin-for-q2a
-//Plugin URL: 
+//Plugin URL: http://dontforget.pro/php/plagin-avtorizatsii-cherez-ulogin-dlya-question2answer-cms/
 /////////////////////Autor://///////////////////
 //nick: saxap
 //blog: dontforget.pro
