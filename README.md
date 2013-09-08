@@ -4,6 +4,8 @@ This is plugin for question2answer CMS ( http://www.question2answer.org/ ) and a
 
 Do not use iframes and full customizable!
 
+http://dontforget.pro/php/plagin-avtorizatsii-cherez-ulogin-dlya-question2answer-cms/
+
 Capabilities:
 ==============
 1) Customized appearance and possibility to display your own pictures of buttons
