@@ -31,7 +31,7 @@ class qa_ulogin_login {
 	/* Providers that will be hidden */
 	var $hidden = 'other'; // available values is: other, any values of $providers or nothing. only for not buttons
 	/* Real URL to q2a */
-	var $realurl = 'http://q2atest.chatmanager.ru/'; // where your q2a located
+	var $realurl = 'http://yoursite.ru/'; // where your q2a located
 	/* How long remember users */
 	var $cookielife = '48'; // cookie lifetime in hours
 	/* Additional styles */
