@@ -20,4 +20,4 @@ Install:
 
 How to display my social buttons?
 ==============
-Upload and replace pictures in "buttons" folder and set $size = 'buttons' in qa-ulogin-login.php file. 
+Upload and replace pictures in "buttons" folder and set $type = 'buttons' in qa-ulogin-login.php file. 
