@@ -182,6 +182,9 @@ class qa_ulogin_login {
 	}
 
 	function login_html($tourl, $context) {
+		static $a = 0;
+		if ($a == 0) {
+			$a = 1;
 		if ($this->type == 'buttons') {
 ?>
 			<script src="//ulogin.ru/js/ulogin.js"></script>
@@ -208,6 +211,7 @@ class qa_ulogin_login {
 		<div id="uLogin" data-ulogin="display=<?php echo $this->type; ?>;fields=first_name,last_name;optional=email,nickname,bdate,photo;providers=<?php echo $this->providers; ?>;hidden=<?php echo $this->hidden; ?>;redirect_uri=<?php echo $this->realurl; ?>"></div>
 
 <?php		
+		}
 		}
 	}		
 
