@@ -1,10 +1,10 @@
-ulogin-for-q2a
+ulogin-for-q2a by saxap (http://dontforget.pro)
 ==============
 This is plugin for question2answer CMS ( http://www.question2answer.org/ ) and allow you login in, uses uLogin service ( http://ulogin.ru/ )  and your social accounts.
 
 Do not use iframes and full customizable!
 
-http://dontforget.pro/php/plagin-avtorizatsii-cherez-ulogin-dlya-question2answer-cms/
+Full description(in russian): http://dontforget.pro/php/plagin-avtorizatsii-cherez-ulogin-dlya-question2answer-cms/
 
 Capabilities:
 ==============
