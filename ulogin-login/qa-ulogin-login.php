@@ -94,7 +94,7 @@ class qa_ulogin_login {
 
 
 			// if cookies is set
-			if (isset($_COOKIE["qa_ulogin_id"]) && isset($_COOKIE["qa_ulogin_scr"]))
+			if (isset($_COOKIE["qa_ulogin_id"]) && $_COOKIE["qa_ulogin_id"] && isset($_COOKIE["qa_ulogin_scr"]) && $_COOKIE["qa_ulogin_scr"])
 			{
 				$uid = $_COOKIE['qa_ulogin_id'];
 				$cook = $_COOKIE['qa_ulogin_scr'];
